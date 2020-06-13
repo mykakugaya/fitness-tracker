@@ -1,0 +1,19 @@
+{
+  "name": "fitness-tracker",
+  "version": "1.0.0",
+  "description": "allows users to view, create, and track daily workouts",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "seed": "node seeders/seed.js"
+  },
+  "author": "Myka Kugaya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18",
+    "morgan": "^1.10.0"
+  }
+}
