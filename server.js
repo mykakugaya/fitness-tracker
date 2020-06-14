@@ -14,11 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+require("./routes/html-routes.js")(app);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
 // Create Workout database
-db.Workout.create({ name: "Workout" })
+db.Workout.create({})
 .then(dbWorkout => {
     console.log(dbWorkout);
 })
@@ -26,7 +27,7 @@ db.Workout.create({ name: "Workout" })
     console.log(message);
 });
 
-// Routes
+// API Routes
 app.post("/submit", ({body}, res) => {
   db.Exercise.create(body)
     .then(({_id}) => db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, { new: true }))
@@ -48,7 +49,7 @@ app.get("/exercises", (req, res) => {
     });
 });
 
-app.get("/workout", (req, res) => {
+app.get("/workouts", (req, res) => {
   db.Workout.find({})
     .then(dbWorkout => {
       res.json(dbWorkout);
