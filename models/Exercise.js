@@ -5,21 +5,14 @@ const Schema = mongoose.Schema;
 const ExerciseSchema = new Schema({
     type: String,
     name: String,
+    duration: Number,
     // if type = Resistance
     weight: Number,
     sets: Number,
     reps: Number,
     // if type = Cardio
-    distance: Number,
-    duration: Number
+    distance: Number
 });
-
-ExerciseSchema.methods.setCardio = function() {
-    
-};
-ExerciseSchema.methods.setResistance = function() {
-    
-};
 
 const Exercise = mongoose.model("Exercise", ExerciseSchema);
 
