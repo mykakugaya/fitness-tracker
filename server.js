@@ -19,15 +19,6 @@ require("./routes/api-routes.js")(app);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
-// Create first Workout
-db.Workout.create({})
-.then(dbWorkout => {
-    console.log(dbWorkout);
-})
-.catch(({message}) => {
-    console.log(message);
-});
-
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });

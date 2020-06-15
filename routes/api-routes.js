@@ -4,9 +4,8 @@ const mongoose = require("mongoose");
 // API Routes
 module.exports = function(app) {
     // Add an exercise
-    app.put("/api/workouts/:id", ({body}, res) => {
-        db.Exercise.create(body)
-        .then(({_id}) => db.Workout.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$push: { exercises: _id }}, { new: true }))
+    app.put("/api/workouts/:id", ({body,params}, res) => {
+        db.Workout.findByIdAndUpdate(params.id, {$push: { exercises:body}})
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
@@ -30,9 +29,11 @@ module.exports = function(app) {
     app.get("/api/workouts", (req, res) => {
         db.Workout.find({})
         .then(dbWorkout => {
+            console.log(dbWorkout)
             res.json(dbWorkout);
         })
         .catch(err => {
+            console.log(err)
             res.json(err);
         });
     });
@@ -40,7 +41,6 @@ module.exports = function(app) {
     // Stats Dashboard - populate workout exercises
     app.get("/api/workouts/range", (req, res) => {
         db.Workout.find({})
-        .populate("exercises")
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
